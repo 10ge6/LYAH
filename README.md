@@ -1,1 +1,1 @@
-fun @ http://learnyouahaskell.com/
+fun @ https://learnyouahaskell.github.io/
