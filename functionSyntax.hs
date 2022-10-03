@@ -75,3 +75,38 @@ calcDensities xs = [density m v | (m, v) <- xs]
  - those functions helper functions as well, each with its own where clause.
 -}
 
+calcBmis :: (RealFloat a) => [(a, a)] -> [a]
+calcBmis xs = [bmi | (w, h) <- xs, let bmi = w / h ^ 2]         -- neat syntax
+
+{-
+ - since let bindings are expressions and are fairly local in their scope,
+ - they can't be used across guards. Some people prefer where bindings because the
+ - names come after the function they're being used in. That way, the function
+ - body is closer to its name and type declaration and to some that's more readable.
+-}
+
+head' :: [a] -> a
+head' xs = case xc of [] -> error "No head for empty lists!"    -- pattern matching on parameters in function definitions is
+                      (x:_) -> x                                -- syntactic sugar for case expressions (they're interchangeable)
+
+{-
+ - whereas pattern matching on function parameters can only be done when defining
+ - functions, case expressions can be used pretty much anywhere. for instance:
+-}
+
+describeList :: [a] -> String
+describeList xs = "The list is " ++ case xs of [] -> "empty."
+                                               [x] -> "a singleton list."
+					       xs -> "a longer list."
+
+{-
+ - because pattern matching in function definitions is synctactic sugar
+ - for case expressions, we could have also defined this like so:
+-}
+
+describeList' :: [a] -> String
+describeList' xs = "The list is " ++ what xs
+    where what [] = "empty."
+          what [x] = "a singleton list."
+	  what xs = "a longer list."
+
